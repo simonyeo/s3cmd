@@ -322,6 +322,18 @@ test_s3cmd("List bucket recursive", ['ls', '--recursive', pbucket(1)],
 ## ====== FIXME
 # test_s3cmd("Recursive put", ['put', '--recursive', 'testsuite/etc', '%s/xyz/' % pbucket(1) ])
 
+## ====== Remove 'demo' directory
+test_rmdir("Remove 'demo/'", "testsuite-out/xyz/demo/")
+
+
+## ====== Create dir with name of a file
+test_mkdir("Create some-file.xml dir", "testsuite-out/xyz/demo/some-file.xml")
+
+
+## ====== Skip dst dirs
+test_s3cmd("Skip over dir", ['sync', '%s/xyz' % pbucket(1), 'testsuite-out'],
+       must_find = "WARNING: testsuite-out/xyz/demo/some-file.xml is a directory - skipping over")
+
 
 ## ====== Clean up local destination dir
 test_flushdir("Clean testsuite-out/", "testsuite-out")

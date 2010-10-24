@@ -1173,9 +1173,6 @@ def do_remote2local_work(item,seq,total):
 			if e.errno in (errno.EPERM, errno.EACCES):
 				warning(u"%s not writable: %s" % (dst_file, e.strerror))
 				return
-                        if e.errno == errno.EISDIR:
-                                warning(u"%s is a directory - skipping over" % dst_file)
-                                continue
 			raise e
 
 		# We have to keep repeating this call because 
